@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="develop.js" defer></script>
+</head>
+<body>
+    
+    <label for="name">First number</label>
+    <input type="number" id="a" size="10" onchange="getVal()">
+    <label for="name">Second number</label>
+    <input type="number" id="b" size="10" onchange="getVal()">
+
+    <div>
+        <button class = "selection" data-selection = "add">+</button>
+        <button class = "selection" data-selection = "substract">-</button>
+        <button class = "selection" data-selection = "multiply">×</button>
+        <button class = "selection" data-selection = "divide">÷</button>
+    </div>
+    <div id = results></div>
+</body>
+</html>
