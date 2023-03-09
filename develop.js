@@ -75,7 +75,6 @@ operationButtons.forEach(button => {
     })
   })
 
-
 numberButtons.forEach((number) => {
   number.addEventListener('click', () => {
     if(currentOperand === "czy ty masz boga w sercu człowieku?" || currentOperand === "szanujmy się") {
