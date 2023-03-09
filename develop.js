@@ -10,6 +10,23 @@ let currentOperand = '';
 let previousOperand = '';
 let operation = undefined;
 
+document.addEventListener('keydown', e => {
+  if(!isNaN(e.key)) {
+    let number = e.key
+    currentOperand = currentOperand.toString() + number.toString();
+    updateOperand();
+  } else if(e.key === '.') {
+    let dot = e.key
+    if(currentOperand.includes('.')) {
+      return
+    } else {
+      currentOperand = currentOperand.toString() + dot.toString();
+      updateOperand();
+    } 
+  } else {
+    return
+  }
+})
 const operate = () => {
   let compute
   if(!previousOperand || !currentOperand) {
@@ -75,6 +92,40 @@ operationButtons.forEach(button => {
     })
   })
 
+  document.addEventListener('keydown', e => {
+    // debugger
+    if(e.key === '*' || e.key === 'x') {
+      operation = "x";
+      chooseOperation(operation)
+      updateOperand();
+    } else if(e.key === '/') {
+      operation = "÷";
+      chooseOperation(operation)
+      updateOperand();
+    }else if(e.key === '+' || e.key === '*' || e.key === '-') {
+      operation = e.key
+      chooseOperation(operation)
+      updateOperand();
+    }
+  })
+
+  document.addEventListener('keydown', e => {
+    if(e.key === '=') {
+      if(previousOperand === '' || currentOperand === '') {
+        currentOperand = 'szanujmy się'
+      } 
+      operate()
+      updateOperand()
+    }
+  })
+document.addEventListener('keydown', e => {
+  if(e.key === "Backspace") {
+  currentOperand = currentOperand.toString()
+  currentOperand = currentOperand.slice(0, -1);
+  console.log(currentOperand)
+  updateOperand();
+  }
+})
 numberButtons.forEach((number) => {
   number.addEventListener('click', () => {
     if(currentOperand === "czy ty masz boga w sercu człowieku?" || currentOperand === "szanujmy się") {
