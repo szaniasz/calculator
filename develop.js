@@ -17,7 +17,6 @@ const operate = () => {
   }
   const previous = parseFloat(previousOperand)
   const current = parseFloat(currentOperand)
-
   if(isNaN(previous) || isNaN(current)){
     return;
   }
@@ -28,12 +27,17 @@ const operate = () => {
     case '-':
       compute = previous - current;
       break
-    case '*':
+    case 'x':
       compute = previous * current;
       break
     case '÷':
+      if(current === 0) {
+        previousOperand = ''
+        operation = undefined
+        currentOperand = "czy ty masz boga w sercu człowieku?"
+      } else {
       compute = previous / current;
-      break
+      break}
     default: 
      return
   }
@@ -43,7 +47,8 @@ const operate = () => {
 }
 
 const chooseOperation = (operator) => {
-  if(currentOperand === '') {
+  
+  if(currentOperand === '' || currentOperand === "czy ty masz boga w sercu człowieku?" || currentOperand === "szanujmy się") {
     return
   }
   if(previousOperand !== ''){
@@ -56,7 +61,7 @@ const chooseOperation = (operator) => {
 const updateOperand = () => {
   currentOperandTextElement.innerText = currentOperand;
   if(operation !== undefined) {
-    previousOperandTextElement.innerText = previousOperand + operation;
+    previousOperandTextElement.innerText = previousOperand + ' ' + operation;
   } else {
     previousOperandTextElement.innerText = '';
   }
@@ -73,6 +78,9 @@ operationButtons.forEach(button => {
 
 numberButtons.forEach((number) => {
   number.addEventListener('click', () => {
+    if(currentOperand === "czy ty masz boga w sercu człowieku?" || currentOperand === "szanujmy się") {
+      return
+    }
     if(number.innerText === ".") {
       if(currentOperand.includes('.')) {
         return;
@@ -99,55 +107,9 @@ deleteButton.addEventListener('click', () => {
 })
 
 equalsButton.addEventListener('click', () => {
+  if(previousOperand === '' || currentOperand === '') {
+    currentOperand = 'szanujmy się'
+  }
   operate();
   updateOperand();
 })
-
-
-// numberButtons.forEach(button => {
-//   button.addEventListener('click', () => {
-//     console.log(button.innerText)
-//   })
-// })
-// operationButtons.forEach(button => {
-//   button.addEventListener('click', () => {
-//     console.log(button.innerText)
-//   })
-// })
-// equalsButton.addEventListener('click', () => {
-//   console.log()
-// })
-
-
-
-// const add = function(a, b) {
-//     return a + b;
-//   };
-  
-//   const substract = function(a, b) {
-//     return a - b;
-//   };
-  
-//   const multiply = function(a, b) {
-//     return a * b;
-//   };
-
-//   const divdie = function(a, b) {
-//     return a / b;
-//   };
-
-//   const selection = document.querySelectorAll('.selection');
-
-//     const operate = function(a, b, operator) {
-//       if (operator === 'add') {
-//           return add(a ,b);
-//       } else if (operator === 'substract') {
-//           return substract(a, b);
-//       } else if (operator === 'multiply') {
-//           return multiply(a, b);
-//       } else if (operator === 'divide') {
-//           return divdie(a, b);
-//       }
-//     };
-
-//     results.textContent = operate(a, b, operator)
